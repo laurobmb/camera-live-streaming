@@ -1,22 +1,21 @@
 from flask import Flask, render_template, Response
 import cv2
+import os
 
 app = Flask(__name__)
+LINK = os.getenv('LINK')
+camera = cv2.VideoCapture(LINK)
 
-camera = cv2.VideoCapture(0)  # use 0 for web camera
-#  for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' instead of camera
-
-def gen_frames():  # generate frame by frame from camera
+def gen_frames():
     while True:
-        # Capture frame-by-frame
-        success, frame = camera.read()  # read the camera frame
+        success, frame = camera.read()
         if not success:
             break
         else:
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 @app.route('/video_feed')
