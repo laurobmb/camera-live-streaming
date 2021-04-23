@@ -38,4 +38,4 @@ This project was create to exhibit the security camera sonoff gk-200mp2-b on web
 
 ## Credit
 
-	Learn More about Streaming with flask [link](https://blog.miguelgrinberg.com/post/video-streaming-with-flask)
+Learn More about Streaming with flask [link](https://blog.miguelgrinberg.com/post/video-streaming-with-flask)
